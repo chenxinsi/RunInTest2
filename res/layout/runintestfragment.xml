@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linearlayout_label"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
     <TextView 
-        android:id="@+id/tv_label"
+        android:id="@+id/runintest_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="label"
+        android:text="runintest"
+        />
+    <Button 
+        android:id="@+id/runintest_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="跳转"
         />
 </LinearLayout>

@@ -7,23 +7,76 @@
     <uses-sdk
         android:minSdkVersion="19"
         android:targetSdkVersion="19" />
-
+    
+    <original-package android:name="com.android.runintest2" />
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity android:name="com.android.runintest2.BaseActivity"/>
+        <activity android:name="com.android.runintest2.drawer.BaseActivity"/>
         <activity
             android:name="com.android.runintest2.RunInTestActivity"
+            android:launchMode="singleTask"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
+                android:value="com.android.runintest2.RunInTestFragment"/>
+            <meta-data android:name="com.android.runintest2.ACTION"
+                android:value="com.android.runintest2.RunInTest$VibrateTestActivity" />
         </activity>
-        <activity android:name="com.android.runintest2.RebootTestActivity" />
+        <!-- Test Items -->
+        
+        <activity android:name="com.android.runintest2.RunInTest$VibrateTestActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+               <action android:name="com.android.runintest2.action.RunInTest" />    
+            </intent-filter>
+            <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
+                android:value="com.android.runintest2.items.VibrateTest" />
+        </activity>
+        
+        <activity android:name="com.android.runintest2.RunInTest$LcdTestActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+               <action android:name="com.android.runintest2.action.RunInTest" />    
+            </intent-filter>
+            <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
+                android:value="com.android.runintest2.items.LcdTest" />
+        </activity>
+        
+        <activity android:name="com.android.runintest2.RunInTest$AudioTestActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+               <action android:name="com.android.runintest2.action.RunInTest" />    
+            </intent-filter>
+            <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
+                android:value="com.android.runintest2.items.LightSenorTest" />
+        </activity>
+        
+        <activity android:name="com.android.runintest2.RunInTest$VedioTestActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+               <action android:name="com.android.runintest2.action.RunInTest" />    
+            </intent-filter>
+            <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
+                android:value="com.android.runintest2.items.VedioTest" />
+        </activity>
+        
+        <activity android:name="com.android.runintest2.RunInTest$LightSensorActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+               <action android:name="com.android.runintest2.action.RunInTest" />    
+            </intent-filter>
+            <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
+                android:value="com.android.runintest2.items.VibrateTest" />
+        </activity>
+        
     </application>
 
 </manifest>
