@@ -37,7 +37,7 @@ public class RunInTestActivity extends BaseActivity{
     
     public static final String BUNDLE_ACTION_INTENT = "actionIntent";
     
-    public static int GOTOATIVITY = 0;
+    public static int GOTOATIVITY ;
     private boolean isRunInTestActivity;
     
     private String mFragmentclass; 
@@ -45,6 +45,7 @@ public class RunInTestActivity extends BaseActivity{
     private Intent actionIntent;
     private Bundle bundle;
     
+    final String[] singleChoice = {"开发模式","工厂模式"};
     
     private String[] ACTIVITY_FOR_RUNINTEST = {
     		RunInTest.VibrateTestActivity.class.getName(),
@@ -88,9 +89,11 @@ public class RunInTestActivity extends BaseActivity{
 			AlertDialog checkStartTest = new AlertDialog.Builder(RunInTestActivity.this)
             .setTitle("是否需要执行老化测试")
             //.setView(inputRebootCount)
-            .setMessage("老化测试执行后在测试完成前无法退出，请确认是否需要执行")
-            .setPositiveButton("退出老化测试", new CheckStartListener())
-            .setNegativeButton("执行老化测试", new CancelTestingListener())
+            .setCancelable(false)
+            .setSingleChoiceItems(singleChoice, 1,null)
+            //.setMessage("老化测试执行后在测试完成前无法退出，请确认是否需要执行")
+            .setPositiveButton("执行老化测试", new CheckStartListener())
+            .setNegativeButton("退出老化测试", new CancelTestingListener())
             .show();
 		}
 		getMetaData();
@@ -136,10 +139,11 @@ public class RunInTestActivity extends BaseActivity{
 			if(ai == null || ai.metaData == null) return;
 			mFragmentclass = ai.metaData.getString(META_DATA_KEY_FRAGMENT_CLASS);
 			//mActionName = ai.metaData.getString(RunInTestActivity.META_DATA_ACTION);
+			Log.d("xinsi", "mFragmentclass:" + mFragmentclass);
 			actionIntent = new Intent();
 			if(GOTOATIVITY < ACTIVITY_FOR_RUNINTEST.length ){
 			 actionIntent.setClassName(ai.packageName, ACTIVITY_FOR_RUNINTEST[GOTOATIVITY]);
-			 GOTOATIVITY++;
+		     GOTOATIVITY++;
 			}else{
 				return;
 			}
@@ -162,19 +166,20 @@ public class RunInTestActivity extends BaseActivity{
 		   Log.d(TAG, "onDestory");
 	}
 	
+	
+	
 	private class CancelTestingListener implements DialogInterface.OnClickListener {
 	    @Override
 	    public void onClick(DialogInterface arg0, int arg1) {
-	    	// TODO Auto-generated method stub
-	    	
+	    	RunInTestActivity.this.finish();
 	    }
     }
 	
 	private class CheckStartListener implements DialogInterface.OnClickListener {
 	    @Override
 	    public void onClick(DialogInterface arg0, int arg1) {
-	    	// TODO Auto-generated method stub
-	    	
+	    	startActivity(actionIntent);
+	    	RunInTestActivity.this.finish();
 	    }    
     }
 	
