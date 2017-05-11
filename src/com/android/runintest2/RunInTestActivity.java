@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.android.runintest2.drawer.BaseActivity;
+import com.android.runintest2.drawer.TestItemUtils;
 import com.android.runintest2.items.AudioTest;
 import com.android.runintest2.items.LcdTest;
 import com.android.runintest2.items.LightSenorTest;
@@ -47,7 +48,7 @@ public class RunInTestActivity extends BaseActivity{
     
     final String[] singleChoice = {"开发模式","工厂模式"};
     
-    private String[] ACTIVITY_FOR_RUNINTEST = {
+    public static String[] ACTIVITY_FOR_RUNINTEST = {
     		RunInTest.VibrateTestActivity.class.getName(),
     		RunInTest.LcdTestActivity.class.getName(),
     		RunInTest.AudioTestActivity.class.getName(),
@@ -142,8 +143,19 @@ public class RunInTestActivity extends BaseActivity{
 			Log.d("xinsi", "mFragmentclass:" + mFragmentclass);
 			actionIntent = new Intent();
 			if(GOTOATIVITY < ACTIVITY_FOR_RUNINTEST.length ){
-			 actionIntent.setClassName(ai.packageName, ACTIVITY_FOR_RUNINTEST[GOTOATIVITY]);
-		     GOTOATIVITY++;
+				Log.d("xinsi","getClass().getName():" + getClass().getName() + "\n" +
+						"RunInTestActivity.class.getName():" + RunInTestActivity.class.getName());
+				/**
+				 * 开启主界面时 GOTOATIVITY 都应为 0，
+				 * 当到测试项时 GOTOATIVITY 自增 1 跳转下一项测试
+				 */
+				if(getClass().getName().equals(RunInTestActivity.class.getName())){
+					GOTOATIVITY = 0;
+				}else{
+					GOTOATIVITY++;
+				}
+				Log.d("xinsi","GOTOATIVITY:" + GOTOATIVITY);
+			    actionIntent.setClassName(ai.packageName, ACTIVITY_FOR_RUNINTEST[GOTOATIVITY]);
 			}else{
 				return;
 			}
@@ -178,9 +190,10 @@ public class RunInTestActivity extends BaseActivity{
 	private class CheckStartListener implements DialogInterface.OnClickListener {
 	    @Override
 	    public void onClick(DialogInterface arg0, int arg1) {
-	    	startActivity(actionIntent);
-	    	RunInTestActivity.this.finish();
-	    }    
+	    		startActivity(actionIntent);
+	    		RunInTestActivity.this.finish();
+	    }
+	       
     }
 	
 }

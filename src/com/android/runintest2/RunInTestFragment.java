@@ -23,22 +23,20 @@ public class RunInTestFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.runintestfragment, container, false);
-		btn = (Button) view.findViewById(R.id.runintest_btn);
-        
 		return view;
 	}
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		bundle =  getArguments();
+		/*bundle =  getArguments();
         btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				intent = (Intent)bundle.getParcelable(RunInTestActivity.BUNDLE_ACTION_INTENT);
 				startActivity(intent);
 			}
-		});
+		});*/
 	}
 	
 	@Override
