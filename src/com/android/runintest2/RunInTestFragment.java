@@ -1,7 +1,7 @@
 package com.android.runintest2;
 
 
-import com.example.runintest2.R;
+import com.android.runintest2.R;
 
 import android.app.Fragment;
 import android.content.Intent;

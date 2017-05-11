@@ -1,6 +1,6 @@
 package com.android.runintest2.drawer;
 
-import com.example.runintest2.R;
+import com.android.runintest2.R;
 
 import android.app.Activity;
 import android.app.ActivityManager;

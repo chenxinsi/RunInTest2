@@ -3,6 +3,8 @@ package com.android.runintest2.drawer;
 import java.util.HashMap;
 import java.util.List;
 
+import junit.framework.Test;
+
 import com.android.runintest2.RunInTestActivity;
 
 import android.app.Activity;
@@ -12,6 +14,8 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.ResolveInfo;
+import android.os.Bundle;
 import android.util.Log;
 
 public class TestItemUtils {
@@ -29,15 +33,38 @@ public class TestItemUtils {
 	
 	public static HashMap<String, TestItem> caches;
 	
-	/*public static HashMap<String, TestItem> getTestItems(){
-		caches = new HashMap<String, TestItem>();
-		
-		 for(int i = 0 ; i<RunInTestActivity.ACTIVITY_FOR_RUNINTEST.length; i++){
-			 caches.put(RunInTestActivity.ACTIVITY_FOR_RUNINTEST[i], getTestItem);
-		 }
-		return caches;
+	private static boolean requireRunInTest = true;
+
+	/***
+	 * xinsi
+	 * for Only Test
+	 */
+	public static final String ACTION_ONLYTEST =
+			"com.android.action.onlytest";
+	
+	public static List<TestItem> getTestItems(Context context){
+		PackageManager pm = context.getPackageManager();
+		Intent intent = new Intent();
+		intent.setAction(ACTION_ONLYTEST);
+		if(requireRunInTest){
+			Log.d("xinsi", "context.getPackageName()" + context.getPackageName());
+			//intent.setPackage(RUNINTEST_PACKAGE);
+		}
+		List<ResolveInfo> resolveInfo = pm.queryIntentActivities(
+				   intent, PackageManager.GET_META_DATA);
+		Log.d("xinsi", "resolveInfo:" + resolveInfo);
+		for(ResolveInfo info : resolveInfo){
+			ActivityInfo activityInfo = info.activityInfo;
+            Bundle metaData = activityInfo.metaData;
+            Log.d("xinsi",metaData.getString(META_DATA_KEY_FRAGMENT_CLASS)
+            		+ "\n" + "activityInfo.name:"+ activityInfo.name
+            		+ "\n" + "activityInfo.packageName" + activityInfo.packageName);
+		}
+		return null;
 	}
-	*/
+	
+	
+	
 	public static TestItem getTestItem(Context context){
 		TestItem test = new TestItem();
 		Intent intent = new Intent();
@@ -54,6 +81,8 @@ public class TestItemUtils {
 
 		return test;
 	}
+	
+	
 	
 	
 	

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.runintest2"
+    package="com.android.runintest2"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -31,8 +31,9 @@
             <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
                 android:value="com.android.runintest2.RunInTestFragment"/>
         </activity>
-        <!-- Test Items -->
         
+        
+        <!-- Test Items -->
         <activity android:name="com.android.runintest2.RunInTest$VibrateTestActivity"
             android:launchMode="singleTop">
             <intent-filter>
@@ -78,6 +79,25 @@
                 android:value="com.android.runintest2.items.VibrateTest" />
         </activity>
         
+        
+        <!-- OnlyTest -->
+        <activity android:name="com.android.runintest2.RunInTest$OnlyTestActivity1" 
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="com.android.action.onlytest" />
+            </intent-filter>
+            <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
+                android:value="com.android.runintest2.onlytest.OnlyTest1"/>
+        </activity>
+        
+        <activity android:name="com.android.runintest2.RunInTest$OnlyTestActivity2" 
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="com.android.action.onlytest" />
+            </intent-filter>
+            <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
+                android:value="com.android.runintest2.onlytest.OnlyTest2"/>
+        </activity>
     </application>
 
 </manifest>

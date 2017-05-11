@@ -1,6 +1,6 @@
 package com.android.runintest2.items;
 
-import com.example.runintest2.R;
+import com.android.runintest2.R;
 
 import android.app.Fragment;
 import android.os.Bundle;
