@@ -4,7 +4,7 @@ public class RunInTest extends RunInTestActivity{
 	/**
 	 * for AgingTest 
 	 */
-	//public static class RebootTestActivity  extends  BaseActivity{/** empty **/}
+	public static class RebootTestActivity  extends  RunInTestActivity{/** empty **/}
 	public static class VibrateTestActivity extends  RunInTestActivity{/** empty **/}
 	public static class LcdTestActivity     extends  RunInTestActivity{/** empty **/}
 	public static class AudioTestActivity   extends  RunInTestActivity{/** empty **/}

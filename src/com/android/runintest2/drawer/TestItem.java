@@ -10,8 +10,8 @@ public class TestItem implements Parcelable{
 	public String title;
 	public Intent intent;
 	public Bundle extras;
-    public Bundle metaDate;
-    
+    public Bundle metaData;
+    public String action;
     public TestItem(){
     	//Empty
     }
@@ -32,7 +32,8 @@ public class TestItem implements Parcelable{
 		}
 		
 		dest.writeBundle(extras);
-		dest.writeBundle(metaDate);
+		dest.writeBundle(metaData);
+		dest.writeString(action);
 	}
 	
 	public void readFromParcel(Parcel in){
@@ -41,7 +42,8 @@ public class TestItem implements Parcelable{
 			intent = Intent.CREATOR.createFromParcel(in);
 		}
 		extras = in.readBundle();
-		metaDate = in.readBundle();
+		metaData = in.readBundle();
+		action = in.readString();
 	}
 	
 	TestItem(Parcel in){ readFromParcel(in); }

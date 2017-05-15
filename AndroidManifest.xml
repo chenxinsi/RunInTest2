@@ -30,17 +30,40 @@
             </intent-filter>
             <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
                 android:value="com.android.runintest2.RunInTestFragment"/>
+            <meta-data android:name="com.android.runintest2.targetAction"
+                       android:value="com.android.runintest2.action.VibrateTestActivity"/>
         </activity>
         
         
         <!-- Test Items -->
+        <activity android:name="com.android.runintest2.RunInTest$RebootTestActivity"
+                  android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="com.android.runintest2.action.RunInTest" />
+            </intent-filter>
+            <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
+                       android:value="com.android.runintest2.items.RebootTest"/>
+            <meta-data android:name="com.android.runintest2.title"
+                       android:value="@string/reboot_test_title"/>
+            <meta-data android:name="com.android.runintest2.targetAction"
+                       android:value="com.android.runintest2.action.VibrateTestActivity"/>
+        </activity>
+
         <activity android:name="com.android.runintest2.RunInTest$VibrateTestActivity"
             android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="com.android.runintest2.action.VibrateTestActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
             <intent-filter>
                <action android:name="com.android.runintest2.action.RunInTest" />    
             </intent-filter>
             <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
-                android:value="com.android.runintest2.items.VibrateTest" />
+                android:value="com.android.runintest2.items.VibrateTest"/>
+            <meta-data android:name="com.android.runintest2.title"
+                     android:value="@string/vibrate_test_title"/>
+            <meta-data android:name="com.android.runintest2.targetAction"
+                       android:value="com.android.runintest2.action.LcdTestActivity"/>
         </activity>
         
         <activity android:name="com.android.runintest2.RunInTest$LcdTestActivity"
@@ -48,8 +71,14 @@
             <intent-filter>
                <action android:name="com.android.runintest2.action.RunInTest" />    
             </intent-filter>
+            <intent-filter>
+                <action android:name="com.android.runintest2.action.LcdTestActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
             <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
                 android:value="com.android.runintest2.items.LcdTest" />
+            <meta-data android:name="com.android.runintest2.title"
+                       android:value="@string/lcd_test_title"/>
         </activity>
         
         <activity android:name="com.android.runintest2.RunInTest$AudioTestActivity"
@@ -59,6 +88,8 @@
             </intent-filter>
             <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
                 android:value="com.android.runintest2.items.LightSenorTest" />
+            <meta-data android:name="com.android.runintest2.title"
+                       android:value="@string/audio_test_title"/>
         </activity>
         
         <activity android:name="com.android.runintest2.RunInTest$VedioTestActivity"
@@ -68,6 +99,8 @@
             </intent-filter>
             <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
                 android:value="com.android.runintest2.items.VedioTest" />
+            <meta-data android:name="com.android.runintest2.title"
+                       android:value="@string/vedio_test_title"/>
         </activity>
         
         <activity android:name="com.android.runintest2.RunInTest$LightSensorActivity"
@@ -77,11 +110,13 @@
             </intent-filter>
             <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
                 android:value="com.android.runintest2.items.VibrateTest" />
+            <meta-data android:name="com.android.runintest2.title"
+                       android:value="@string/lightsenor_test_title"/>
         </activity>
         
         
         <!-- OnlyTest -->
-        <activity android:name="com.android.runintest2.RunInTest$OnlyTestActivity1" 
+        <activity android:name="com.android.runintest2.RunInTest$OnlyTestActivity1"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="com.android.action.onlytest" />
@@ -90,7 +125,7 @@
                 android:value="com.android.runintest2.onlytest.OnlyTest1"/>
         </activity>
         
-        <activity android:name="com.android.runintest2.RunInTest$OnlyTestActivity2" 
+        <activity android:name="com.android.runintest2.RunInTest$OnlyTestActivity2"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="com.android.action.onlytest" />

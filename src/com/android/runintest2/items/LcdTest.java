@@ -8,16 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.android.runintest2.drawer.BaseFragment;
 
-public class LcdTest extends Fragment{
+public class LcdTest extends BaseFragment {
 
-	private TextView tv;
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.runintestfragment, container, false);
-		tv= (TextView) view.findViewById(R.id.runintest_tv);
-		tv.setText("LCD测试");
-		return view;
-	}
+
+
 }

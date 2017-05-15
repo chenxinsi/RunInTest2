@@ -1,5 +1,6 @@
 package com.android.runintest2.drawer;
 
+import android.view.*;
 import com.android.runintest2.R;
 
 import android.app.Activity;
@@ -7,11 +8,6 @@ import android.app.ActivityManager;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 
 /**
  * @author xinsi
@@ -20,6 +16,7 @@ import android.view.WindowManager;
  * 3. forbid MonkeyTest
  * 4. Portrait
  * 5. forbid back key
+ * 6. No Title
  */
 public class BaseActivity extends Activity{
 	private static final String TAG = "BaseActivity";
@@ -29,6 +26,8 @@ public class BaseActivity extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//no title
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.setContentView(R.layout.activity_main);
 		//long light
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -41,10 +40,24 @@ public class BaseActivity extends Activity{
 			   Log.d(TAG, "isRunningMonkey" + "\n" + "finish activity");
 			}
 		}
+		//设置全屏
+		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+							| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+							| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+							| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+							| View.SYSTEM_UI_FLAG_FULLSCREEN
+					//| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+
+		);
+
 		//unlock
+
+
 		
 	}
-	
+
+
+
 	@Override
 	public void setContentView(int layoutResID) {
        final ViewGroup parent = (ViewGroup) findViewById(R.id.container);
@@ -68,7 +81,7 @@ public class BaseActivity extends Activity{
 		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 	}
 	
-	/*@Override
+	@Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
@@ -78,6 +91,6 @@ public class BaseActivity extends Activity{
                 break;
         }
         return super.onKeyDown(keyCode, event);
-    }*/
+    }
 	
 }

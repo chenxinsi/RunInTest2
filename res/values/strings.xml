@@ -4,5 +4,10 @@
     <string name="app_name">RunInTest2</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
+    <string name="reboot_test_title">RebootTest</string>
+    <string name="vibrate_test_title">VibrateTest</string>
+    <string name="audio_test_title">AudioTest</string>
+    <string name="lcd_test_title">LcdTest</string>
+    <string name="lightsenor_test_title">LightSenorTest</string>
+    <string name="vedio_test_title">VedioTest</string>
 </resources>
