@@ -1,13 +1,19 @@
-package com.android.runintest2.drawer;
+package com.android.runintest.drawer;
 
+import android.app.KeyguardManager;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.UserHandle;
 import android.view.*;
-import com.android.runintest2.R;
+import com.android.internal.widget.LockPatternUtils;
+import com.android.runintest.R;
 
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
+import com.android.runintest.itemdata.RunInTestData;
 
 /**
  * @author xinsi
@@ -50,12 +56,26 @@ public class BaseActivity extends Activity{
 
 		);
 
-		//unlock
-
-
-		
 	}
 
+	protected void unLock(){
+		//unLock 1
+		/*KeyguardManager keyguardManager = (KeyguardManager)getSystemService(KEYGUARD_SERVICE);
+		KeyguardManager.KeyguardLock keyguardLock = keyguardManager.newKeyguardLock("");
+		keyguardLock.disableKeyguard();*/
+
+		//unLock 2
+		LockPatternUtils mLockPatternUtils = new LockPatternUtils(this);
+		mLockPatternUtils.setLockScreenDisabled(true, UserHandle.myUserId());
+	}
+
+	protected SharedPreferences getDefaultSharedPreferences(Context context){
+		return context.getSharedPreferences(getDefaultSharedPreferencesName(), Context.MODE_PRIVATE);
+	}
+
+	protected String getDefaultSharedPreferencesName(){
+		return RunInTestData.RUNINTEST_PREFERENCE;
+	}
 
 
 	@Override
@@ -80,7 +100,9 @@ public class BaseActivity extends Activity{
 		super.onDestroy();
 		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 	}
-	
+
+
+
 	@Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {

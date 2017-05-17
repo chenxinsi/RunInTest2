@@ -1,15 +1,10 @@
-package com.android.runintest2.drawer;
+package com.android.runintest.drawer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import junit.framework.Test;
-
-import com.android.runintest2.RunInTestActivity;
-
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -24,17 +19,17 @@ public class TestItemUtils {
 	private static final String TAG = "TestItemUtils";
 	
 	public static final String ACTION_TESTITEM =
-			"com.android.runintest2.action.RunInTest";
+			"com.android.runintest.action.RunInTest";
 	private static final String METADATA_TESTITEM_TITLE =
-			    "com.android.runintest2.title";
+			    "com.android.runintest.title";
 	public static final String META_DATA_KEY_FRAGMENT_CLASS =
-            "com.android.runintest2.FRAGMENT_CLASS";
-	public static final String META_DATA_TITLE = "com.android.runintest2.title";
+            "com.android.runintest.FRAGMENT_CLASS";
+	public static final String META_DATA_TITLE = "com.android.runintest.title";
 
 	public static final String META_DATA_TARGETACTION =
-			"com.android.runintest2.targetAction";
+			"com.android.runintest.targetAction";
 
-	private static final String RUNINTEST_PACKAGE = "com.android.runintest2";
+	private static final String RUNINTEST_PACKAGE = "com.android.runintest";
 	
 	public static HashMap<String, TestItem> caches;
 	
@@ -70,7 +65,7 @@ public class TestItemUtils {
 			items.add(item);
 			Log.d("xinsi", "item action :" + item.intent.getAction().toString() +"\n"
 			            + "META_DATA_KEY_FRAGMENT_CLASS:"+item.metaData.getString(META_DATA_KEY_FRAGMENT_CLASS)
-			            + "\n" + "com.android.runintest2.title :" + item.metaData.getString(META_DATA_TITLE));
+			            + "\n" + "com.android.runintest.title :" + item.metaData.getString(META_DATA_TITLE));
 		}
 		Log.d("xinsi","items:"+items);
 		return items;

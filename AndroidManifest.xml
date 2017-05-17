@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.runintest2"
+    package="com.android.runintest"
+    android:sharedUserId="android.uid.system"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="19"
-        android:targetSdkVersion="19" />
+        android:minSdkVersion="25"
+        android:targetSdkVersion="25" />
     
-    <original-package android:name="com.android.runintest2" />
+    <original-package android:name="com.android.runintest" />
     
     
     <uses-permission android:name="android.permission.VIBRATE" />
-    
+    <uses-permission android:name="android.permission.REBOOT"/>
+    <uses-permission  android:name="android.permission.SHUTDOWN"/>
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity android:name="com.android.runintest2.drawer.BaseActivity"/>
+        <activity android:name="com.android.runintest.drawer.BaseActivity"/>
         <activity
-            android:name="com.android.runintest2.RunInTestActivity"
+            android:name="com.android.runintest.RunInTestActivity"
             android:launchMode="singleTask"
             android:label="@string/app_name" >
             <intent-filter>
@@ -28,111 +30,136 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
-                android:value="com.android.runintest2.RunInTestFragment"/>
-            <meta-data android:name="com.android.runintest2.targetAction"
-                       android:value="com.android.runintest2.action.VibrateTestActivity"/>
+            <meta-data android:name="com.android.runintest.FRAGMENT_CLASS"
+                android:value="com.android.runintest.RunInTestFragment"/>
+            <meta-data android:name="com.android.runintest.targetAction"
+                       android:value="com.android.runintest.action.RebootTestActivity"/>
         </activity>
         
         
         <!-- Test Items -->
-        <activity android:name="com.android.runintest2.RunInTest$RebootTestActivity"
-                  android:launchMode="singleTop">
+        <activity android:name="com.android.runintest.RunInTest$RebootTestActivity">
             <intent-filter>
-                <action android:name="com.android.runintest2.action.RunInTest" />
+                <action android:name="com.android.runintest.action.RunInTest" />
             </intent-filter>
-            <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
-                       android:value="com.android.runintest2.items.RebootTest"/>
-            <meta-data android:name="com.android.runintest2.title"
+            <intent-filter>
+                <action android:name="com.android.runintest.action.RebootTestActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data android:name="com.android.runintest.FRAGMENT_CLASS"
+                       android:value="com.android.runintest.items.reboot.RebootTest"/>
+            <meta-data android:name="com.android.runintest.title"
                        android:value="@string/reboot_test_title"/>
-            <meta-data android:name="com.android.runintest2.targetAction"
-                       android:value="com.android.runintest2.action.VibrateTestActivity"/>
+            <meta-data android:name="com.android.runintest.targetAction"
+                       android:value="com.android.runintest.action.VibrateTestActivity"/>
         </activity>
 
-        <activity android:name="com.android.runintest2.RunInTest$VibrateTestActivity"
+        <activity android:name="com.android.runintest.RunInTest$VibrateTestActivity"
             android:launchMode="singleTop">
             <intent-filter>
-                <action android:name="com.android.runintest2.action.VibrateTestActivity" />
+                <action android:name="com.android.runintest.action.VibrateTestActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
-               <action android:name="com.android.runintest2.action.RunInTest" />    
+               <action android:name="com.android.runintest.action.RunInTest" />
             </intent-filter>
-            <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
-                android:value="com.android.runintest2.items.VibrateTest"/>
-            <meta-data android:name="com.android.runintest2.title"
+            <meta-data android:name="com.android.runintest.FRAGMENT_CLASS"
+                android:value="com.android.runintest.items.VibrateTest"/>
+            <meta-data android:name="com.android.runintest.title"
                      android:value="@string/vibrate_test_title"/>
-            <meta-data android:name="com.android.runintest2.targetAction"
-                       android:value="com.android.runintest2.action.LcdTestActivity"/>
+            <meta-data android:name="com.android.runintest.targetAction"
+                       android:value="com.android.runintest.action.LcdTestActivity"/>
         </activity>
         
-        <activity android:name="com.android.runintest2.RunInTest$LcdTestActivity"
+        <activity android:name="com.android.runintest.RunInTest$LcdTestActivity"
             android:launchMode="singleTop">
             <intent-filter>
-               <action android:name="com.android.runintest2.action.RunInTest" />    
+               <action android:name="com.android.runintest.action.RunInTest" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.android.runintest2.action.LcdTestActivity" />
+                <action android:name="com.android.runintest.action.LcdTestActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
-                android:value="com.android.runintest2.items.LcdTest" />
-            <meta-data android:name="com.android.runintest2.title"
+            <meta-data android:name="com.android.runintest.FRAGMENT_CLASS"
+                android:value="com.android.runintest.items.LcdTest" />
+            <meta-data android:name="com.android.runintest.title"
                        android:value="@string/lcd_test_title"/>
+            <meta-data android:name="com.android.runintest.targetAction"
+                       android:value="com.android.runintest.action.AudioTestActivity"/>
         </activity>
         
-        <activity android:name="com.android.runintest2.RunInTest$AudioTestActivity"
+        <activity android:name="com.android.runintest.RunInTest$AudioTestActivity"
             android:launchMode="singleTop">
             <intent-filter>
-               <action android:name="com.android.runintest2.action.RunInTest" />    
+               <action android:name="com.android.runintest.action.RunInTest" />
             </intent-filter>
-            <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
-                android:value="com.android.runintest2.items.LightSenorTest" />
-            <meta-data android:name="com.android.runintest2.title"
+            <intent-filter>
+                <action android:name="com.android.runintest.action.AudioTestActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data android:name="com.android.runintest.FRAGMENT_CLASS"
+                android:value="com.android.runintest.items.AudioTest" />
+            <meta-data android:name="com.android.runintest.title"
                        android:value="@string/audio_test_title"/>
         </activity>
         
-        <activity android:name="com.android.runintest2.RunInTest$VedioTestActivity"
+        <activity android:name="com.android.runintest.RunInTest$VedioTestActivity"
             android:launchMode="singleTop">
             <intent-filter>
-               <action android:name="com.android.runintest2.action.RunInTest" />    
+               <action android:name="com.android.runintest.action.RunInTest" />
             </intent-filter>
-            <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
-                android:value="com.android.runintest2.items.VedioTest" />
-            <meta-data android:name="com.android.runintest2.title"
+            <meta-data android:name="com.android.runintest.FRAGMENT_CLASS"
+                android:value="com.android.runintest.items.VedioTest" />
+            <meta-data android:name="com.android.runintest.title"
                        android:value="@string/vedio_test_title"/>
         </activity>
         
-        <activity android:name="com.android.runintest2.RunInTest$LightSensorActivity"
+        <activity android:name="com.android.runintest.RunInTest$LightSensorActivity"
             android:launchMode="singleTop">
             <intent-filter>
-               <action android:name="com.android.runintest2.action.RunInTest" />    
+               <action android:name="com.android.runintest.action.RunInTest" />
             </intent-filter>
-            <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
-                android:value="com.android.runintest2.items.VibrateTest" />
-            <meta-data android:name="com.android.runintest2.title"
+            <meta-data android:name="com.android.runintest.FRAGMENT_CLASS"
+                android:value="com.android.runintest.items.VibrateTest" />
+            <meta-data android:name="com.android.runintest.title"
                        android:value="@string/lightsenor_test_title"/>
         </activity>
         
         
         <!-- OnlyTest -->
-        <activity android:name="com.android.runintest2.RunInTest$OnlyTestActivity1"
+        <activity android:name="com.android.runintest.RunInTest$OnlyTestActivity1"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="com.android.action.onlytest" />
             </intent-filter>
-            <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
-                android:value="com.android.runintest2.onlytest.OnlyTest1"/>
+            <meta-data android:name="com.android.runintest.FRAGMENT_CLASS"
+                android:value="com.android.runintest.onlytest.OnlyTest1"/>
         </activity>
         
-        <activity android:name="com.android.runintest2.RunInTest$OnlyTestActivity2"
+        <activity android:name="com.android.runintest.RunInTest$OnlyTestActivity2"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="com.android.action.onlytest" />
             </intent-filter>
-            <meta-data android:name="com.android.runintest2.FRAGMENT_CLASS"
-                android:value="com.android.runintest2.onlytest.OnlyTest2"/>
+            <meta-data android:name="com.android.runintest.FRAGMENT_CLASS"
+                android:value="com.android.runintest.onlytest.OnlyTest2"/>
         </activity>
+
+
+        <!-- Service -->
+        <service android:name="com.android.runintest.TestService">
+            <intent-filter>
+                <action android:name="com.android.runintest.action.TESTSERVICE"/>
+            </intent-filter>
+        </service>
+
+        <!-- receiver -->
+        <receiver android:name="com.android.runintest.items.reboot.RebootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

@@ -1,7 +1,7 @@
-package com.android.runintest2.onlytest;
+package com.android.runintest.onlytest;
 
 import android.app.Fragment;
-import com.android.runintest2.R;
+import com.android.runintest.R;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

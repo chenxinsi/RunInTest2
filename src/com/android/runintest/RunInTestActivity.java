@@ -1,4 +1,4 @@
-package com.android.runintest2;
+package com.android.runintest;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -7,21 +7,19 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.android.runintest2.R;
-import com.android.runintest2.drawer.BaseActivity;
-import com.android.runintest2.drawer.TestItem;
-import com.android.runintest2.drawer.TestItemUtils;
-import com.android.runintest2.items.*;
-import com.android.runintest2.onlytest.OnlyTest1;
-import com.android.runintest2.onlytest.OnlyTest2;
-
-import java.util.ArrayList;
+import com.android.runintest.R;
+import com.android.runintest.drawer.BaseActivity;
+import com.android.runintest.drawer.TestItem;
+import com.android.runintest.drawer.TestItemUtils;
+import com.android.runintest.itemdata.RunInTestData;
+import com.android.runintest.items.*;
+import com.android.runintest.items.reboot.RebootTest;
+import com.android.runintest.onlytest.OnlyTest1;
+import com.android.runintest.onlytest.OnlyTest2;
+import com.android.runintest.utils.CommonUtils;
 
 public class RunInTestActivity extends BaseActivity{
 	
@@ -72,14 +70,6 @@ public class RunInTestActivity extends BaseActivity{
     	}
     	return false;
     }
-    
-    protected SharedPreferences getDefaultSharedPreferences(){
-    	return getSharedPreferences(getDefaultSharedPreferencesName(), Context.MODE_PRIVATE);
-    }
-    
-    protected String getDefaultSharedPreferencesName(){
-    	return getPackageName() + "_preferences";
-    }
 
 	/**
 	 * onlyTest
@@ -113,9 +103,38 @@ public class RunInTestActivity extends BaseActivity{
 		switchToFragment(mFragmentclass, true, true, bundle);
 		if(DEBUG_TIME) 
 			Log.d(TAG,"onCreate took" +(System.currentTimeMillis() - startTime) + "ms");
-		
-		
+
 	}
+
+	/**
+	 * 执行老化测试程序 , 启动TestService, 允许接收RebootReceiver广播, 解锁屏
+	 */
+	private void startTest(){
+
+		initData();
+
+		CommonUtils.startTestService(this, TAG);
+
+		unLock();
+
+		Intent intent =new Intent().setAction(
+				item.metaData.getString(TestItemUtils.META_DATA_TARGETACTION));
+		startActivity(intent);
+
+		RunInTestActivity.this.finish();
+	}
+
+    private void initData(){
+		SharedPreferences initdata = getDefaultSharedPreferences(this);
+		SharedPreferences.Editor editor = initdata.edit();
+		//允许接收RebootReceiver广播
+		editor.putBoolean(RunInTestData.ISRUNINTEST, true);
+
+
+
+		editor.commit();
+	}
+
 
 	private Fragment switchToFragment(String fragmentName, boolean addToBackStack,
 			boolean validate,Bundle args){
@@ -161,18 +180,16 @@ public class RunInTestActivity extends BaseActivity{
 	private class CancelTestingListener implements DialogInterface.OnClickListener {
 	    @Override
 	    public void onClick(DialogInterface arg0, int arg1) {
-	    	RunInTestActivity.this.finish();
+
+			CommonUtils.stopTestService(RunInTestActivity.this,TAG);
+			RunInTestActivity.this.finish();
 	    }
     }
 	
 	private class CheckStartListener implements DialogInterface.OnClickListener {
 	    @Override
 	    public void onClick(DialogInterface arg0, int arg1) {
-	    		//startActivity(actionIntent);
-			    Intent intent =new Intent().setAction(
-						item.metaData.getString(TestItemUtils.META_DATA_TARGETACTION));
-			    startActivity(intent);
-	    		RunInTestActivity.this.finish();
+			startTest();
 	    }
 	       
     }

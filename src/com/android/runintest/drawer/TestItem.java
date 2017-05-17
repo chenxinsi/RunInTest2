@@ -1,4 +1,4 @@
-package com.android.runintest2.drawer;
+package com.android.runintest.drawer;
 
 import android.content.Intent;
 import android.os.Bundle;

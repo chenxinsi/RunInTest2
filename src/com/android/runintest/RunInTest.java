@@ -1,4 +1,4 @@
-package com.android.runintest2;
+package com.android.runintest;
 
 public class RunInTest extends RunInTestActivity{
 	/**

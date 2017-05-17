@@ -1,10 +1,10 @@
-package com.android.runintest2.utils;
+package com.android.runintest.utils;
 
 import java.io.BufferedWriter;  
 import java.io.File;
 import java.io.FileWriter;  
-import java.io.IOException;  
-import android.os.Environment;
+import java.io.IOException;
+
 import android.util.Log;
 import java.text.SimpleDateFormat;
 import android.os.FileUtils;

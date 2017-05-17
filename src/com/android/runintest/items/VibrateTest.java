@@ -1,17 +1,16 @@
-package com.android.runintest2.items;
+package com.android.runintest.items;
 
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
-import com.android.runintest2.R;
+import com.android.runintest.R;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Vibrator;
-import com.android.runintest2.drawer.BaseFragment;
-import com.android.runintest2.itemdata.RunInTestData;
-import com.android.runintest2.utils.LogRuningTest;
+import com.android.runintest.drawer.BaseFragment;
+import com.android.runintest.itemdata.RunInTestData;
+import com.android.runintest.utils.LogRuningTest;
 
 public class VibrateTest extends BaseFragment{
 

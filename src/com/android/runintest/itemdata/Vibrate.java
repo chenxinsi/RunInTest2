@@ -1,4 +1,4 @@
-package com.android.runintest2.itemdata;
+package com.android.runintest.itemdata;
 
 /**
  * Created by xinsi on 17-5-15.
