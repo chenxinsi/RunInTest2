@@ -13,6 +13,8 @@ public class RunInTestData {
     /**
      * RunInTest
      */
+    public static final int DEVELOPTESTMODE = 0;
+    public static final int FACTORYTESTMODE = 1;
     public static final String  ISRUNINTEST = "isrunintest"; //允许接收RebootReceiver广播
 
     /**

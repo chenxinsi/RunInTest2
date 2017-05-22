@@ -10,4 +10,14 @@
     <string name="lcd_test_title">LcdTest</string>
     <string name="lightsenor_test_title">LightSenorTest</string>
     <string name="vedio_test_title">VedioTest</string>
+
+    <string name="menu_settings">Settings</string>
+    <string name="title_alert">提示信息</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+
+    <string name="rb_test">"调试"</string>
+    <string name="rb_factory">"工厂"</string>
+
+
 </resources>

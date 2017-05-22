@@ -10,8 +10,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
+import android.widget.RadioGroup;
+import android.widget.Toast;
 import com.android.runintest.R;
 import com.android.runintest.drawer.BaseActivity;
+import com.android.runintest.drawer.CustomDialog;
 import com.android.runintest.drawer.TestItem;
 import com.android.runintest.drawer.TestItemUtils;
 import com.android.runintest.itemdata.RunInTestData;
@@ -34,6 +37,8 @@ public class RunInTestActivity extends BaseActivity{
     private Bundle bundle;
     
     final String[] singleChoice = {"开发模式","工厂模式"};
+	//默认测试模式 为工厂模式
+	private int TestMode = RunInTestData.FACTORYTESTMODE;
     
     public static String[] ACTIVITY_FOR_RUNINTEST = {
 			RunInTest.RebootTestActivity.class.getName(),
@@ -87,7 +92,19 @@ public class RunInTestActivity extends BaseActivity{
 		long startTime = System.currentTimeMillis();
 
 		isRunInTestActivity = getClass().getName().equals(RunInTestActivity.class.getName());
-		if(isRunInTestActivity){
+		if(isRunInTestActivity) {
+			CustomDialog.Builder checkBuilder = new CustomDialog.Builder(this);
+			CustomDialog dialog = checkBuilder.setTitle("是否需要执行老化测试")
+					.setMessage("请选择默认工厂模式, 开发模式仅供开发人员调试, 谢谢！")
+					.setSingleSelection(singleChoice, 1, new SingleChoice())
+					.setPositiveButton("执行", new CheckStartListener())
+					.setNegativeButton("退出", new CancelTestingListener())
+					.create();
+			dialog.setCancelable(false);
+			dialog.show();
+		}
+/*
+		if(false && isRunInTestActivity){
 			AlertDialog checkStartTest = new AlertDialog.Builder(RunInTestActivity.this)
             .setTitle("是否需要执行老化测试")
             //.setView(inputRebootCount)
@@ -97,7 +114,7 @@ public class RunInTestActivity extends BaseActivity{
             .setPositiveButton("执行老化测试", new CheckStartListener())
             .setNegativeButton("退出老化测试", new CancelTestingListener())
             .show();
-		}
+		}*/
 		getMetaData();
 		
 		switchToFragment(mFragmentclass, true, true, bundle);
@@ -106,22 +123,50 @@ public class RunInTestActivity extends BaseActivity{
 
 	}
 
+
+	private void exitTest(){
+		//开发模式
+		if(TestMode == RunInTestData.DEVELOPTESTMODE){
+
+		}
+
+		//工厂模式
+		if(TestMode == RunInTestData.FACTORYTESTMODE){
+			CommonUtils.stopTestService(RunInTestActivity.this,TAG);
+			RunInTestActivity.this.finish();
+		}
+
+	}
+
 	/**
+	 * 开发模式
+	 *
+	 *
+	 *
+	 * 工厂模式
 	 * 执行老化测试程序 , 启动TestService, 允许接收RebootReceiver广播, 解锁屏
 	 */
 	private void startTest(){
+		//开发模式
+		if(TestMode == RunInTestData.DEVELOPTESTMODE){
 
-		initData();
+		}
 
-		CommonUtils.startTestService(this, TAG);
+		//工厂模式
+        if(TestMode == RunInTestData.FACTORYTESTMODE){
+			initData();
 
-		unLock();
+			CommonUtils.startTestService(this, TAG);
 
-		Intent intent =new Intent().setAction(
-				item.metaData.getString(TestItemUtils.META_DATA_TARGETACTION));
-		startActivity(intent);
+			unLock();
 
-		RunInTestActivity.this.finish();
+			Intent intent =new Intent().setAction(
+					item.metaData.getString(TestItemUtils.META_DATA_TARGETACTION));
+			startActivity(intent);
+
+			RunInTestActivity.this.finish();
+		}
+
 	}
 
     private void initData(){
@@ -180,9 +225,7 @@ public class RunInTestActivity extends BaseActivity{
 	private class CancelTestingListener implements DialogInterface.OnClickListener {
 	    @Override
 	    public void onClick(DialogInterface arg0, int arg1) {
-
-			CommonUtils.stopTestService(RunInTestActivity.this,TAG);
-			RunInTestActivity.this.finish();
+			exitTest();
 	    }
     }
 	
@@ -193,5 +236,18 @@ public class RunInTestActivity extends BaseActivity{
 	    }
 	       
     }
+
+	private class SingleChoice implements RadioGroup.OnCheckedChangeListener{
+		@Override
+		public void onCheckedChanged(RadioGroup radioGroup, int i) {
+			if(i == RunInTestData.DEVELOPTESTMODE){
+				TestMode = RunInTestData.DEVELOPTESTMODE;
+				Toast.makeText(RunInTestActivity.this, singleChoice[0], 0).show();
+			}else if(i == RunInTestData.FACTORYTESTMODE){
+				TestMode = RunInTestData.FACTORYTESTMODE;
+				Toast.makeText(RunInTestActivity.this, singleChoice[1], 0).show();
+			}
+		}
+	}
 	
 }
