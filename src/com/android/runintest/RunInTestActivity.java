@@ -23,6 +23,8 @@ import com.android.runintest.items.reboot.RebootTest;
 import com.android.runintest.onlytest.OnlyTest1;
 import com.android.runintest.onlytest.OnlyTest2;
 import com.android.runintest.utils.CommonUtils;
+import com.android.runintest.items.camera.CameraTest;
+import com.android.runintest.items.showrunintest.ShowRunIn;
 
 public class RunInTestActivity extends BaseActivity{
 	
@@ -30,15 +32,18 @@ public class RunInTestActivity extends BaseActivity{
     
     private static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
+	private static final String DEVELOPMENTRUNINTEST = "com.android.runintest.action.DevelopRunInTest";
 
     private boolean isRunInTestActivity;
     
     private String mFragmentclass;
     private Bundle bundle;
+	private TestItem item;
     
     final String[] singleChoice = {"开发模式","工厂模式"};
 	//默认测试模式 为工厂模式
 	private int TestMode = RunInTestData.FACTORYTESTMODE;
+
     
     public static String[] ACTIVITY_FOR_RUNINTEST = {
 			RunInTest.RebootTestActivity.class.getName(),
@@ -61,6 +66,13 @@ public class RunInTestActivity extends BaseActivity{
     	AudioTest.class.getName(),
     	VedioTest.class.getName(),
     	LightSenorTest.class.getName(),
+		CameraTest.class.getName(),
+		ShowRunIn.class.getName(),
+		ChargeTest.class.getName(),
+		DDRTest.class.getName(),
+		EMMCTest.class.getName(),
+		TPTest.class.getName(),
+
 
     	//onlyTest
 		OnlyTest1.class.getName(),
@@ -76,10 +88,7 @@ public class RunInTestActivity extends BaseActivity{
     	return false;
     }
 
-	/**
-	 * onlyTest
-	 */
-	private TestItem item;
+
 
 	/**
 	 *
@@ -147,25 +156,27 @@ public class RunInTestActivity extends BaseActivity{
 	 * 执行老化测试程序 , 启动TestService, 允许接收RebootReceiver广播, 解锁屏
 	 */
 	private void startTest(){
+		unLock();
+		Intent intent = null;
 		//开发模式
 		if(TestMode == RunInTestData.DEVELOPTESTMODE){
-
+           intent = new Intent().setAction(DEVELOPMENTRUNINTEST);
 		}
 
 		//工厂模式
         if(TestMode == RunInTestData.FACTORYTESTMODE){
 			initData();
-
 			CommonUtils.startTestService(this, TAG);
-
-			unLock();
-
-			Intent intent =new Intent().setAction(
+			intent = new Intent().setAction(
 					item.metaData.getString(TestItemUtils.META_DATA_TARGETACTION));
-			startActivity(intent);
 
+		}
+
+		if(intent != null){
+			startActivity(intent);
 			RunInTestActivity.this.finish();
 		}
+
 
 	}
 

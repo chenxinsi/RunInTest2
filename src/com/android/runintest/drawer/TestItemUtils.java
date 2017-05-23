@@ -62,6 +62,7 @@ public class TestItemUtils {
 			item.intent = intent.setClassName(activityInfo.packageName,activityInfo.name)
 					.setAction(action);
 			item.metaData = metaData;
+			item.title = activityInfo.metaData.getString(METADATA_TESTITEM_TITLE);
 			items.add(item);
 			Log.d("xinsi", "item action :" + item.intent.getAction().toString() +"\n"
 			            + "META_DATA_KEY_FRAGMENT_CLASS:"+item.metaData.getString(META_DATA_KEY_FRAGMENT_CLASS)

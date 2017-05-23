@@ -28,10 +28,7 @@ public class TestService  extends Service{
 
     private SystemBroadcastReceiver receiver;
     private Boolean isRegister = false;
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
+
 
     @Override
     public void onCreate() {
@@ -43,6 +40,11 @@ public class TestService  extends Service{
         String state = CommonUtils.getComponentState(this, new ComponentName(this, RebootReceiver.class));
         LogRuningTest.printDebug(TAG, "rebootreceiver  state :" + state, this);
 
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
     @Override

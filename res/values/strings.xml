@@ -10,6 +10,13 @@
     <string name="lcd_test_title">LcdTest</string>
     <string name="lightsenor_test_title">LightSenorTest</string>
     <string name="vedio_test_title">VedioTest</string>
+    <string name="tp_test_title">TPTest</string>
+    <string name="ddr_test_title">DDRTest</string>
+    <string name="camera_test_title">CameraTest</string>
+    <string name="emmc_test_title">EMMCTest</string>
+    <string name="charge_test_title">ChargeTest</string>
+    <string name="show_result_title">ShowResultTest</string>
+    <string name="develop_runintest">Development</string>
 
     <string name="menu_settings">Settings</string>
     <string name="title_alert">提示信息</string>

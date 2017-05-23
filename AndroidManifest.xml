@@ -36,7 +36,21 @@
                        android:value="com.android.runintest.action.RebootTestActivity"/>
         </activity>
         
-        
+        <!--For  Development -->
+        <activity android:name="com.android.runintest.RunInTest$DevelopRunInTest">
+            <intent-filter>
+                <action android:name="com.android.runintest.action.RunInTest" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.android.runintest.action.DevelopRunInTest" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data android:name="com.android.runintest.FRAGMENT_CLASS"
+                       android:value="com.android.runintest.RunInTestFragment"/>
+            <meta-data android:name="com.android.runintest.title"
+                       android:value="@string/develop_runintest"/>
+        </activity>
+
         <!-- Test Items -->
         <activity android:name="com.android.runintest.RunInTest$RebootTestActivity">
             <intent-filter>
@@ -124,8 +138,73 @@
             <meta-data android:name="com.android.runintest.title"
                        android:value="@string/lightsenor_test_title"/>
         </activity>
-        
-        
+
+        <activity android:name="com.android.runintest.RunInTest$TPTestActivity"
+                  android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="com.android.runintest.action.RunInTest" />
+            </intent-filter>
+            <meta-data android:name="com.android.runintest.FRAGMENT_CLASS"
+                       android:value="com.android.runintest.items.TPTest" />
+            <meta-data android:name="com.android.runintest.title"
+                       android:value="@string/tp_test_title"/>
+        </activity>
+
+        <activity android:name="com.android.runintest.RunInTest$DDRTestActivity"
+                  android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="com.android.runintest.action.RunInTest" />
+            </intent-filter>
+            <meta-data android:name="com.android.runintest.FRAGMENT_CLASS"
+                       android:value="com.android.runintest.items.DDRTest" />
+            <meta-data android:name="com.android.runintest.title"
+                       android:value="@string/ddr_test_title"/>
+        </activity>
+
+        <activity android:name="com.android.runintest.RunInTest$CameraTestActivity"
+                  android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="com.android.runintest.action.RunInTest" />
+            </intent-filter>
+            <meta-data android:name="com.android.runintest.FRAGMENT_CLASS"
+                       android:value="com.android.runintest.items.camera.CameraTest" />
+            <meta-data android:name="com.android.runintest.title"
+                       android:value="@string/camera_test_title"/>
+        </activity>
+
+        <activity android:name="com.android.runintest.RunInTest$EMMCTestActivity"
+                  android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="com.android.runintest.action.RunInTest" />
+            </intent-filter>
+            <meta-data android:name="com.android.runintest.FRAGMENT_CLASS"
+                       android:value="com.android.runintest.items.EMMCTest" />
+            <meta-data android:name="com.android.runintest.title"
+                       android:value="@string/emmc_test_title"/>
+        </activity>
+
+        <activity android:name="com.android.runintest.RunInTest$ChargeTestActivity"
+                  android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="com.android.runintest.action.RunInTest" />
+            </intent-filter>
+            <meta-data android:name="com.android.runintest.FRAGMENT_CLASS"
+                       android:value="com.android.runintest.items.ChargeTest" />
+            <meta-data android:name="com.android.runintest.title"
+                       android:value="@string/charge_test_title"/>
+        </activity>
+
+        <activity android:name="com.android.runintest.RunInTest$ShowRunInResult"
+                  android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="com.android.runintest.action.RunInTest" />
+            </intent-filter>
+            <meta-data android:name="com.android.runintest.FRAGMENT_CLASS"
+                       android:value="com.android.runintest.items.showrunintest.ShowRunIn" />
+            <meta-data android:name="com.android.runintest.title"
+                       android:value="@string/show_result_title"/>
+        </activity>
+
         <!-- OnlyTest -->
         <activity android:name="com.android.runintest.RunInTest$OnlyTestActivity1"
             android:launchMode="singleTop">
