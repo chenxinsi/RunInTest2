@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import com.android.runintest.SystemBroadcastReceiver;
+import com.android.runintest.TestService;
 import com.android.runintest.drawer.BaseBroadCastReceiver;
 import com.android.runintest.itemdata.RunInTestData;
 import com.android.runintest.utils.LogRuningTest;
@@ -15,7 +16,6 @@ import com.android.runintest.utils.LogRuningTest;
  */
 public class RebootReceiver extends BaseBroadCastReceiver {
     private static final String TAG = "RebootReceiver";
-
     public static final String ACTION_BOOT = "android.intent.action.BOOT_COMPLETED";
     /**
      * 开机广播

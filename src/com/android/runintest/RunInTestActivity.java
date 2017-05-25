@@ -3,11 +3,11 @@ package com.android.runintest;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.*;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
 import android.util.Log;
 
 import android.widget.RadioGroup;
@@ -25,6 +25,7 @@ import com.android.runintest.onlytest.OnlyTest2;
 import com.android.runintest.utils.CommonUtils;
 import com.android.runintest.items.camera.CameraTest;
 import com.android.runintest.items.showrunintest.ShowRunIn;
+import com.android.runintest.utils.LogRuningTest;
 
 public class RunInTestActivity extends BaseActivity{
 	
@@ -42,7 +43,7 @@ public class RunInTestActivity extends BaseActivity{
     
     final String[] singleChoice = {"开发模式","工厂模式"};
 	//默认测试模式 为工厂模式
-	private int TestMode = RunInTestData.FACTORYTESTMODE;
+	public static int TestMode = RunInTestData.FACTORYTESTMODE;
 
     
     public static String[] ACTIVITY_FOR_RUNINTEST = {
@@ -136,7 +137,7 @@ public class RunInTestActivity extends BaseActivity{
 	private void exitTest(){
 		//开发模式
 		if(TestMode == RunInTestData.DEVELOPTESTMODE){
-
+			RunInTestActivity.this.finish();
 		}
 
 		//工厂模式
@@ -144,7 +145,6 @@ public class RunInTestActivity extends BaseActivity{
 			CommonUtils.stopTestService(RunInTestActivity.this,TAG);
 			RunInTestActivity.this.finish();
 		}
-
 	}
 
 	/**
@@ -157,27 +157,49 @@ public class RunInTestActivity extends BaseActivity{
 	 */
 	private void startTest(){
 		unLock();
-		Intent intent = null;
+		initData();
 		//开发模式
 		if(TestMode == RunInTestData.DEVELOPTESTMODE){
-           intent = new Intent().setAction(DEVELOPMENTRUNINTEST);
+		   Intent  intent = new Intent().setAction(DEVELOPMENTRUNINTEST);
+		   startActivity(intent);
+		   RunInTestActivity.this.finish();
 		}
 
 		//工厂模式
         if(TestMode == RunInTestData.FACTORYTESTMODE){
-			initData();
+			/**
+			 * 开启TestService
+			 */
 			CommonUtils.startTestService(this, TAG);
-			intent = new Intent().setAction(
-					item.metaData.getString(TestItemUtils.META_DATA_TARGETACTION));
-
+			/**
+			 * 延时60毫秒,等待service的开启和广播的注册
+			 */
+			handler.sendEmptyMessageDelayed(1, 60);
 		}
+	}
 
-		if(intent != null){
-			startActivity(intent);
-			RunInTestActivity.this.finish();
+	Handler handler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			goToNext();
 		}
+	};
+
+	private void goToNext(){
+		sendBroadcast(new Intent(TestService.ACTION)
+				.putExtra("bindaction", item.action));
+		RunInTestActivity.this.finish();
+	}
 
 
+	@Override
+	public void sendBroadcast(Intent intent) {
+		if(TestMode != RunInTestData.FACTORYTESTMODE){
+			LogRuningTest.printDebug(TAG, "develop mode not sendBroadcast", this);
+			return ;
+		}
+		super.sendBroadcast(intent);
 	}
 
     private void initData(){
@@ -229,6 +251,7 @@ public class RunInTestActivity extends BaseActivity{
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		handler.removeCallbacksAndMessages(null);
 		if(DEBUG)
 		   Log.d(TAG, "onDestory");
 	}

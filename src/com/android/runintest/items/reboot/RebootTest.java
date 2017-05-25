@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.android.runintest.RunInTest;
+import com.android.runintest.TestService;
 import com.android.runintest.drawer.BaseFragment;
 import com.android.runintest.itemdata.RunInTestData;
 import com.android.runintest.utils.CommonUtils;
@@ -49,6 +50,12 @@ public class RebootTest extends BaseFragment {
          * 开启广播组件
          */
         startRebootReceiver();
+
+        /**
+         * 开启TestService
+         */
+        CommonUtils.startTestService(getActivity(), TAG);
+
         rebootLoop();
     }
 
@@ -132,7 +139,8 @@ public class RebootTest extends BaseFragment {
          * 禁掉 reboot 广播的组件
          */
         stopRebootReceiver();
-        startActivity(new Intent().setAction(getTestItem().action));
+        getActivity().sendBroadcast(new Intent(TestService.ACTION)
+                .putExtra("bindaction",getTestItem().action));
         getActivity().finish();
     }
 

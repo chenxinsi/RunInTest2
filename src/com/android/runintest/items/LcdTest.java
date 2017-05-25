@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.android.runintest.TestService;
 import com.android.runintest.drawer.BaseFragment;
 import com.android.runintest.itemdata.RunInTestData;
 
@@ -74,7 +75,9 @@ public class LcdTest extends BaseFragment {
     }
 
     private void gotoVedioTest(){
-        startActivity(new Intent().setAction(getTestItem().action));
+        //startActivity(new Intent().setAction(getTestItem().action));
+        getActivity().sendBroadcast(new Intent(TestService.ACTION)
+        .putExtra("bindaction", getTestItem().action));
         getActivity().finish();
     }
 

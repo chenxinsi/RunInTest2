@@ -1,13 +1,14 @@
 package com.android.runintest.items;
 
-import android.os.Handler;
-import android.os.Message;
+import android.content.ComponentName;
+import android.content.ServiceConnection;
+import android.os.*;
 import com.android.runintest.R;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Vibrator;
+import com.android.runintest.TestService;
 import com.android.runintest.drawer.BaseFragment;
 import com.android.runintest.itemdata.RunInTestData;
 import com.android.runintest.utils.LogRuningTest;
@@ -22,6 +23,9 @@ public class VibrateTest extends BaseFragment{
 	private long delayTime;
 	private static  long[] pattern;
 	private Vibrator vibrator;
+
+
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -48,10 +52,19 @@ public class VibrateTest extends BaseFragment{
 	}
 
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+	}
+
+
+	@Override
 	public void onDestroy() {
+		LogRuningTest.printDebug(TAG, "onDestory()", getActivity());
 		super.onDestroy();
 		vibrator.cancel();
 		handler.removeMessages(1);
+		//getActivity().unbindService(mConnection);
 		LogRuningTest.printDebug(TAG, "vibrate end", getActivity());
 	}
 
@@ -59,7 +72,11 @@ public class VibrateTest extends BaseFragment{
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
-            startActivity(new Intent().setAction(getTestItem().action));
+            //startActivity(new Intent().setAction(getTestItem().action));
+			//bindActionService(getTestItem().action);
+			getActivity().sendBroadcast(new Intent(TestService.ACTION)
+					.putExtra("bindaction", getTestItem().action));
+			LogRuningTest.printDebug(TAG, "finish()", getActivity());
 			getActivity().finish();
 		}
 	};

@@ -69,5 +69,4 @@ public class RunInTestFragment extends BaseFragment {
         }
     }
 
-
 }

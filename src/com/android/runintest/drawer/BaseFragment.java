@@ -1,8 +1,8 @@
 package com.android.runintest.drawer;
 
 import android.app.KeyguardManager;
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.*;
+import android.os.IBinder;
 import android.os.UserHandle;
 import android.util.Log;
 import com.android.internal.widget.LockPatternUtils;
@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.android.runintest.TestService;
 import com.android.runintest.itemdata.RunInTestData;
 import com.android.runintest.utils.LogRuningTest;
 
@@ -41,5 +42,25 @@ public class BaseFragment extends Fragment{
     protected SharedPreferences getDefaultSharedPreferences(){
         return getActivity().getSharedPreferences(RunInTestData.RUNINTEST_PREFERENCE, Context.MODE_PRIVATE);
     }
+
+    protected  void bindActionService(String action){
+        LogRuningTest.printDebug("xinsi", "bindActionService()", getActivity());
+        Intent intent = new Intent(getActivity(), TestService.class);
+        intent.putExtra("bindaction", action);
+        getActivity().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    public ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+              LogRuningTest.printDebug("XINSI","onServiceConnected", getActivity());
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            LogRuningTest.printDebug("XINSI","onServiceDisconnected", getActivity());
+        }
+    };
 
 }
